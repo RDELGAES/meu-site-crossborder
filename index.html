@@ -64,7 +64,7 @@
             apiKey: "AIzaSyCpXRdYGfu0FGJrEvH9-0Wj-ULabCgiddQ",
             authDomain: "meu-site-crossborder.firebaseapp.com",
             projectId: "meu-site-crossborder",
-            storageBucket: "meu-site-crossborder.firebasestorage.app",
+            storageBucket: "meu-site-crossborder.appspot.com", // 🔹 CORRIGIDO!
             messagingSenderId: "516958401337",
             appId: "1:516958401337:web:3dc253468b45b59bd3eee8"
         };
@@ -83,7 +83,10 @@
                     salvarUsuario(userCredential.user);
                     window.location.href = "apps.html";
                 })
-                .catch(error => alert(error.message));
+                .catch(error => {
+                    console.error(error);
+                    alert("Erro ao fazer login: " + error.message);
+                });
         }
 
         function loginGoogle() {
@@ -93,7 +96,10 @@
                     salvarUsuario(result.user);
                     window.location.href = "apps.html";
                 })
-                .catch(error => alert(error.message));
+                .catch(error => {
+                    console.error(error);
+                    alert("Erro ao autenticar com Google: " + error.message);
+                });
         }
 
         function salvarUsuario(user) {
@@ -101,10 +107,13 @@
                 nome: user.displayName || "Usuário",
                 email: user.email,
                 ultimoLogin: new Date()
+            }).catch(error => {
+                console.error("Erro ao salvar usuário:", error);
             });
         }
     </script>
 
 </body>
 </html>
+
 
