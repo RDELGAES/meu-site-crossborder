@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Crossborder Apps - Acesso</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      background: #f5f5f5; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      height: 100vh; 
+      margin: 0;
+    }
+    .container { 
+      background: #fff; 
+      padding: 2em; 
+      border-radius: 8px; 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+      width: 300px;
+    }
+    input { 
+      display: block; 
+      margin-bottom: 1em; 
+      padding: 0.8em; 
+      width: 100%; 
+      border: 1px solid #ccc; 
+      border-radius: 4px; 
+    }
+    button { 
+      padding: 0.8em; 
+      width: 100%; 
+      border: none; 
+      border-radius: 4px; 
+      background: #007BFF; 
+      color: #fff; 
+      font-size: 1em; 
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Bem-vindo ao Crossborder Apps</h1>
+    <form id="acessoForm">
+      <input type="text" name="nome" placeholder="Seu Nome" required>
+      <input type="tel" name="telefone" placeholder="Telefone" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <button type="submit">Acessar</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("acessoForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      // Aqui você pode adicionar validações ou salvar os dados se necessário
+      // Após o processamento, redirecione para a página dos apps
+      window.location.href = "apps.html";
+    });
+  </script>
+</body>
+</html>
