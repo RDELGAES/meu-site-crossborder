@@ -64,7 +64,7 @@
             apiKey: "AIzaSyCpXRdYGfu0FGJrEvH9-0Wj-ULabCgiddQ",
             authDomain: "meu-site-crossborder.firebaseapp.com",
             projectId: "meu-site-crossborder",
-            storageBucket: "meu-site-crossborder.appspot.com", // 🔹 CORRIGIDO!
+            storageBucket: "meu-site-crossborder.appspot.com",
             messagingSenderId: "516958401337",
             appId: "1:516958401337:web:3dc253468b45b59bd3eee8"
         };
@@ -84,8 +84,8 @@
                     window.location.href = "apps.html";
                 })
                 .catch(error => {
-                    console.error(error);
-                    alert("Erro ao fazer login: " + error.message);
+                    console.error("Erro ao fazer login:", error);
+                    alert("Erro: " + error.message);
                 });
         }
 
@@ -97,8 +97,8 @@
                     window.location.href = "apps.html";
                 })
                 .catch(error => {
-                    console.error(error);
-                    alert("Erro ao autenticar com Google: " + error.message);
+                    console.error("Erro ao autenticar com Google:", error);
+                    alert("Erro: " + error.message);
                 });
         }
 
@@ -115,5 +115,6 @@
 
 </body>
 </html>
+
 
 
