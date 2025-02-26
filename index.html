@@ -1,63 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Crossborder Apps - Acesso</title>
-  <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      background: #f5f5f5; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      height: 100vh; 
-      margin: 0;
-    }
-    .container { 
-      background: #fff; 
-      padding: 2em; 
-      border-radius: 8px; 
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
-      width: 300px;
-    }
-    input { 
-      display: block; 
-      margin-bottom: 1em; 
-      padding: 0.8em; 
-      width: 100%; 
-      border: 1px solid #ccc; 
-      border-radius: 4px; 
-    }
-    button { 
-      padding: 0.8em; 
-      width: 100%; 
-      border: none; 
-      border-radius: 4px; 
-      background: #007BFF; 
-      color: #fff; 
-      font-size: 1em; 
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Login - Crossborder Apps</title>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #fff;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 320px;
+            text-align: center;
+        }
+        input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 90%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            background: #007BFF;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .google-btn {
+            background: #DB4437;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Bem-vindo ao Crossborder Apps</h1>
-    <form id="acessoForm">
-      <input type="text" name="nome" placeholder="Seu Nome" required>
-      <input type="tel" name="telefone" placeholder="Telefone" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <button type="submit">Acessar</button>
-    </form>
-  </div>
 
-  <script>
-    document.getElementById("acessoForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      // Aqui você pode adicionar validações ou salvar os dados se necessário
-      // Após o processamento, redirecione para a página dos apps
-      window.location.href = "apps.html";
-    });
-  </script>
+    <div class="container">
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Senha">
+        <button onclick="loginEmail()">Entrar com Email</button>
+        <button class="google-btn" onclick="loginGoogle()">Entrar com Google</button>
+    </div>
+
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpXRdYGfu0FGJrEvH9-0Wj-ULabCgiddQ",
+            authDomain: "meu-site-crossborder.firebaseapp.com",
+            projectId: "meu-site-crossborder",
+            storageBucket: "meu-site-crossborder.firebasestorage.app",
+            messagingSenderId: "516958401337",
+            appId: "1:516958401337:web:3dc253468b45b59bd3eee8"
+        };
+        
+        // Inicializa Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        function loginEmail() {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    salvarUsuario(userCredential.user);
+                    window.location.href = "apps.html";
+                })
+                .catch(error => alert(error.message));
+        }
+
+        function loginGoogle() {
+            let provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then(result => {
+                    salvarUsuario(result.user);
+                    window.location.href = "apps.html";
+                })
+                .catch(error => alert(error.message));
+        }
+
+        function salvarUsuario(user) {
+            db.collection("usuarios").doc(user.uid).set({
+                nome: user.displayName || "Usuário",
+                email: user.email,
+                ultimoLogin: new Date()
+            });
+        }
+    </script>
+
 </body>
 </html>
+

@@ -1,89 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crossborder Apps</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f4f4f4;
-    }
-    .container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 50px;
-    }
-    .app-icon {
-      width: 150px;
-      height: 150px;
-      background-color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .app-icon:hover {
-      transform: scale(1.1);
-    }
-    .app-icon img {
-      width: 80px;
-      height: 80px;
-    }
-    .app-icon p {
-      margin-top: 10px;
-      font-size: 14px;
-    }
-    .iframe-container {
-      display: none;
-      margin-top: 30px;
-    }
-    iframe {
-      width: 90%;
-      height: 600px;
-      border: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Apps - Crossborder</title>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            text-align: center;
+            padding: 20px;
+        }
+        .app-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .app-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 200px;
+            cursor: pointer;
+            text-align: center;
+        }
+        img {
+            width: 80px;
+            height: 80px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Meus Apps Crossborder</h1>
-  <div class="container">
-    <div class="app-icon" onclick="openApp('calculadora-prc')">
-      <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Calculadora PRC">
-      <p>Calculadora PRC Brasil</p>
+
+    <h1>Escolha seu App</h1>
+    <div class="app-container">
+        <div class="app-card" onclick="abrirApp('https://calculadorprc-f4yxklxp4asr9xklltpwvg.streamlit.app/')">
+            <img src="https://cdn-icons-png.flaticon.com/512/3050/3050515.png" alt="Calculadora PRC">
+            <p>Calculadora PRC Brasil</p>
+        </div>
+        <div class="app-card" onclick="abrirApp('https://comparacao-d2c-exportacao-r4mdmhkqsrhtweylzy3pzc.streamlit.app/')">
+            <img src="https://cdn-icons-png.flaticon.com/512/1157/1157109.png" alt="Envio D2C">
+            <p>Calculadora Envio D2C vs Formal</p>
+        </div>
     </div>
-    <div class="app-icon" onclick="openApp('comparacao-d2c')">
-      <img src="https://cdn-icons-png.flaticon.com/512/4319/4319015.png" alt="Comparação D2C vs Formal">
-      <p>Comparação D2C vs Formal</p>
-    </div>
-  </div>
-  
-  <div class="iframe-container" id="app-frame">
-    <h2 id="app-title"></h2>
-    <iframe id="app-iframe"></iframe>
-  </div>
-  
-  <script>
-    function openApp(app) {
-      let url = "";
-      let title = "";
-      if (app === 'calculadora-prc') {
-        url = "https://calculadorprc-f4yxklxp4asr9xklltpwvg.streamlit.app/?embed_options=dark_theme,show_colored_line,light_theme,show_toolbar";
-        title = "Calculadora PRC Brasil";
-      } else if (app === 'comparacao-d2c') {
-        url = "https://comparacao-d2c-exportacao-r4mdmhkqsrhtweylzy3pzc.streamlit.app/?embed_options=dark_theme,show_toolbar,light_theme,show_colored_line";
-        title = "Comparação D2C vs Formal";
-      }
-      document.getElementById("app-iframe").src = url;
-      document.getElementById("app-title").innerText = title;
-      document.getElementById("app-frame").style.display = "block";
-    }
-  </script>
-</body>
-</html>
+
+    <script>
+        
+
