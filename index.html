@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Login - Crossborder Apps</title>
-    <!-- 🔹 Carregar Firebase pelo CDN (FORMA CORRETA) -->
-    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-    
+
+    <!-- 🔹 Firebase carregado via CDN (FORMA CORRETA) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -60,12 +61,12 @@
         <button class="google-btn" onclick="loginGoogle()">Entrar com Google</button>
     </div>
 
-    <!-- 🔹 Código do Firebase deve rodar APÓS carregar a página -->
+    <!-- 🔹 Inicialização do Firebase -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            console.log("Firebase carregando...");
+            console.log("Iniciando Firebase...");
 
-            // Verifica se o Firebase carregou
+            // 🔹 Verifica se o Firebase carregou corretamente
             if (typeof firebase === "undefined") {
                 console.error("Erro: Firebase não carregou corretamente.");
                 return;
@@ -86,7 +87,9 @@
             const auth = firebase.auth();
             const db = firebase.firestore();
 
-            // 🔹 Função de Login com Email/Senha
+            console.log("Firebase inicializado com sucesso!");
+
+            // 🔹 Login com Email/Senha
             window.loginEmail = function () {
                 let email = document.getElementById("email").value;
                 let password = document.getElementById("password").value;
@@ -102,7 +105,7 @@
                     });
             };
 
-            // 🔹 Função de Login com Google
+            // 🔹 Login com Google
             window.loginGoogle = function () {
                 let provider = new firebase.auth.GoogleAuthProvider();
                 auth.signInWithPopup(provider)
@@ -116,7 +119,7 @@
                     });
             };
 
-            // 🔹 Salva usuário no Firestore
+            // 🔹 Salvar usuários no Firestore
             function salvarUsuario(user) {
                 db.collection("usuarios").doc(user.uid).set({
                     nome: user.displayName || "Usuário",
@@ -131,6 +134,7 @@
 
 </body>
 </html>
+
 
 
 
